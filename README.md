@@ -5,6 +5,8 @@ I merge the fun game of hangman and LLM ai to play endlessly this game.
 
 Here you can choose game mode between AI or Database that i created.
 
+AI ACTUALLY WORKS PERFECTLY, I FORGOT TO DELETE THE WORD "BETA" 
+
 ![image](game_assets/in_game/1.png)
 
 And You can choose the hardness of the word. It is based on AI decision so it can surprise you.
