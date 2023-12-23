@@ -12,6 +12,10 @@ And You can choose the hardness of the word. It is based on AI decision so it ca
 ![image](game_assets/in_game/2.png)
 
 
+In here you can choose save file.
+
+
+
 ![image](game_assets/in_game/3.png)
 ![image](game_assets/in_game/4.png)
 ![image](game_assets/in_game/5.png)
