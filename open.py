@@ -68,11 +68,9 @@ def generate_word_from_ai(difficulty):
     if difficulty == 1:
         message = "make it easy level"
     if difficulty == 2:
-        message = "make it medium level"
+        message = "make it hard level"
     if difficulty == 3:
         message = "make it extreme level"
-    if difficulty == 4:
-        message = "make it impossible to find"
 
     if message:
         messages.append( 
@@ -84,6 +82,8 @@ def generate_word_from_ai(difficulty):
     reply = chat.choices[0].message.content 
 
     return str(reply)
+
+
 
 save_path =""
 def draw_save_screen():
