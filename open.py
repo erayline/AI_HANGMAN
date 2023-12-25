@@ -38,7 +38,6 @@ background = pygame.mixer.music.load("game_assets/sound_effects/general_music.mp
 
 #when you enter a difficulty level among 1-2-3 output will be a random word. this works for database.
 def random_word(diff): #deiş
-
     easyList = ["animal.txt", "fruit.txt"]
     medList = ["items.txt", "cities.txt"]
     hardList = ["medical.txt", "disease.txt"]
@@ -62,7 +61,7 @@ def generate_word_from_ai(difficulty):
     """
     hardness should be between 1-2-3
     """
-    openai.api_key = "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"
+    openai.api_key = "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"
     messages = [ {"role": "system", "content": "create just one random word for a hangman game.and make sure to create different, original word, just write what i want don't write your comment"} ]
 
     if difficulty == 1:
@@ -168,8 +167,7 @@ def draw_player_count():
 
 
     font_kucuk = pygame.font.Font("game_assets/HelpMe.ttf", 106)
-    # choose1 = font_kucuk.render("Choose word's domain", False, BLACK)
-    # screen.blit(choose1, (SCREEN_WIDTH-box_size -empty_space*5  ,box_y-empty_space*2))
+
 
 
     font_orta = pygame.font.Font("game_assets/HelpMe.ttf", 30)
@@ -371,8 +369,8 @@ def when_win():
             current_game[0] = str(current_game[0])
             if earniable_point > -1:
                 current_game[1] = str(int(current_game[1])+(earniable_point))
-            current_game[2] = str(current_game[2]) #
-            current_game[3] = str(current_game[3]) #daha bunlar eklenecek
+            current_game[2] = str(current_game[2]) 
+            current_game[3] = str(current_game[3]) 
             save_the_game(save_path,current_game)
 
             keyboard_letter_hide = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
