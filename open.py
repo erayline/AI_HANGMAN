@@ -1,6 +1,5 @@
 import openai
 import pygame
-import sys
 import random
 
 global page
@@ -41,19 +40,17 @@ def random_word(diff): #deiş
     easyList = ["animal.txt", "fruit.txt"]
     medList = ["items.txt", "cities.txt"]
     hardList = ["medical.txt", "disease.txt"]
-
     if diff == 1:
         category = random.choice(easyList)
     elif diff == 2:
         category = random.choice(medList)
     elif diff == 3:
         category = random.choice(hardList)
-
+        
     with open(f"game_assets/word_database/{category}",'r',encoding='utf-8') as database:
         save_file_content = database.read()
         save_file_content = save_file_content.split(",")
         game_word = random.choice(save_file_content)
-
     return game_word
 
 
@@ -61,7 +58,7 @@ def generate_word_from_ai(difficulty):
     """
     hardness should be between 1-2-3
     """
-    openai.api_key = "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"
+    openai.api_key = "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"
     messages = [ {"role": "system", "content": "create just one random word for a hangman game.and make sure to create different, original word, just write what i want don't write your comment"} ]
 
     if difficulty == 1:
@@ -694,14 +691,11 @@ def draw_sub (kelime, correct_guess):
         first_word = text_splitted[0] # atamalar yaptık
         second_word = text_splitted[1] # atamalar yaptık
 
-
-
         text1_len = len(first_word)
         text1_size = int(1000/text1_len)
         if text1_size>200:
             text1_size = 200
         font = pygame.font.Font("game_assets/HelpMe.ttf", text1_size)
-
 
         space = 0
         for i in first_word:
@@ -742,23 +736,25 @@ def draw_sub (kelime, correct_guess):
 
             
     else:
-        text3_len = len(text)
-        text3_size = int(1000/text3_len)
-        if text3_size>200:
+        text3_len = len(text) #measuring letter count
+        text3_size = int(1000/text3_len) #setting text size (because we write 1000, no metter what letter count is. it will take 1000px)
+        if text3_size>200: #if text size 200+ remain 200. for estetic purpuses.
             text3_size = 200
-        font = pygame.font.Font("game_assets/HelpMe.ttf", text3_size)
+        font = pygame.font.Font("game_assets/HelpMe.ttf", text3_size) 
 
 
-        space = 0
-        for i in text:
-            if i in correct_guess:
+        space = 0 
+        for i in text: # text is game_word we loop inside it.
+            if i in correct_guess: # if current letter is inside "correct guessed letters list" it will be displayed as it is
                 word_text_3 = font.render(i, False, GREEN)
-            else:
+            else:                   # if not it will be '_'
                 word_text_3 = font.render("_", False, GREEN)
 
-            space_prot = space
-            space = space*text3_size
+            space_prot = space 
+
+            space = space*text3_size  #because we are printing each word seperately we need to set the space between each letter
             screen.blit(word_text_3,(sub_x+ space,sub_y))
+
             space = space_prot
             space+=1 
         space = 0
@@ -787,14 +783,12 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 clicked_1 = 1
             elif event.type == pygame.KEYDOWN:
 
                 if(event.key == pygame.K_ESCAPE):
                     pygame.quit()
-                    sys.exit()
                 if event.key == pygame.K_0:
                     page = 0
                 if event.key == pygame.K_1:
