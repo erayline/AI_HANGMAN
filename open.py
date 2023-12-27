@@ -435,13 +435,13 @@ def draw_in_game():
     #hint part
     if taken_hint < 2:
         screen.blit(hint_image,(SCREEN_WIDTH-150,10))
-
         if (is_clicked(SCREEN_WIDTH-150,10,150,150)):
-            
-            for i in game_word:
+
+            for i in range(300):
                 i = random.choice(game_word)
                 if i == " ":
                     continue
+
                 if i not in correct_guesses:
                     hint_letter = i
                     break
