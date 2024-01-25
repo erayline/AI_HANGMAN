@@ -4,7 +4,7 @@ import random
 
 global page
 page = 0
-#we are loading our saved information here 
+#we are loading our saved information he
 
 
 pygame.init()
