@@ -1,24 +1,16 @@
 import openai
 import pygame
 import random
-
 global page
 page = 0
-#we are loading our saved information he
-
-
 pygame.init()
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
 WHITE = (225, 205, 205)
 BLACK = (0, 0, 0)
 GREEN = (100,50,100)
-
-
-
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Team 1 - Hangingman")
-
 resim6 = pygame.image.load("game_assets/images/life6.png")
 resim5 = pygame.image.load("game_assets/images/life5.png")
 resim4 = pygame.image.load("game_assets/images/life4.png")
@@ -30,11 +22,7 @@ enterance = pygame.image.load("game_assets/images/enterance.png")
 hint_image = pygame.image.load("game_assets/images/hint.png")
 dying =pygame.mixer.Sound("game_assets/sound_effects/dying.mp3")
 thank_you = pygame.mixer.Sound("game_assets/sound_effects/thank.mp3")
-
 background = pygame.mixer.music.load("game_assets/sound_effects/general_music.mp3")
-
-
-
 #when you enter a difficulty level among 1-2-3 output will be a random word. this works for database.
 def random_word(diff): #deiş
     easyList = ["animal.txt", "fruit.txt"]
@@ -46,28 +34,23 @@ def random_word(diff): #deiş
         category = random.choice(medList)
     elif diff == 3:
         category = random.choice(hardList)
-        
     with open(f"game_assets/word_database/{category}",'r',encoding='utf-8') as database:
         save_file_content = database.read()
         save_file_content = save_file_content.split(",")
         game_word = random.choice(save_file_content)
     return game_word
-
-
 def generate_word_from_ai(difficulty):
     """
     hardness should be between 1-2-3
     """
     openai.api_key = "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"
     messages = [ {"role": "system", "content": "create just one random word for a hangman game.and make sure to create different, original word, just write what i want don't write your comment"} ]
-
     if difficulty == 1:
         message = "make it easy level"
     if difficulty == 2:
         message = "make it hard level"
     if difficulty == 3:
         message = "make it extreme level"
-
     if message:
         messages.append( 
             {"role": "user", "content": message}, 
@@ -76,40 +59,29 @@ def generate_word_from_ai(difficulty):
             model="gpt-3.5-turbo", messages=messages 
         )
     reply = chat.choices[0].message.content 
-
     return str(reply)
-
-
-
 save_path =""
 def draw_save_screen():
     global page
     global save_path
     global current_game
     font = pygame.font.Font("game_assets/HelpMe.ttf", 56)
-
     box_size = SCREEN_WIDTH/3 - 200
     box_y = SCREEN_HEIGHT/2 - box_size/2 + SCREEN_HEIGHT/13
     empty_space = (SCREEN_WIDTH - box_size*3)/4 -30
     screen.blit(enterance,(0,0))
-
-
     if not save_path == "save_files/save_1.txt":
         BLACK1 = (0,0,0)
     else:
         BLACK1 = (0,50,250)
-        
     if not save_path == "save_files/save_2.txt":
         BLACK2 = (0,0,0)
     else:
         BLACK2 = (0,50,250)
-    
     if not save_path == "save_files/save_3.txt":
         BLACK3 = (0,0,0)
     else:
         BLACK3= (0,50,250)
-
-
     pygame.draw.rect(screen,BLACK1,(SCREEN_WIDTH/3    -box_size -empty_space  ,box_y,box_size,box_size),3,10)
     name1 = font.render(f"  {names[0]}", False, BLACK1)
     screen.blit(name1, (SCREEN_WIDTH/3    -box_size -empty_space,box_y + 30))
@@ -118,8 +90,6 @@ def draw_save_screen():
     if (is_clicked(SCREEN_WIDTH/3    -box_size -empty_space  ,box_y,box_size,box_size)):
         current_game = load_from_save("save_files/save_1.txt")
         save_path = "save_files/save_1.txt"
-
-
     pygame.draw.rect(screen,BLACK2,((SCREEN_WIDTH/3)*2-box_size -empty_space  ,box_y,box_size,box_size),3,10)
     name2 = font.render(f"  {names[1]}", False, BLACK2)
     screen.blit(name2, (SCREEN_WIDTH/3 *2   -box_size -empty_space ,box_y + 30))
@@ -128,20 +98,14 @@ def draw_save_screen():
     if (is_clicked((SCREEN_WIDTH/3)*2-box_size -empty_space  ,box_y,box_size,box_size)):
         current_game = load_from_save("save_files/save_2.txt")
         save_path = "save_files/save_2.txt"
-
-
     pygame.draw.rect(screen,BLACK3,(SCREEN_WIDTH      -box_size -empty_space  ,box_y,box_size,box_size),3,10)
     name3 = font.render(f"  {names[2]}", False, BLACK3)
     screen.blit(name3, (SCREEN_WIDTH  -box_size -empty_space,box_y+ 30))
     TP3 = font.render(f"  {TPS[2]}", False, BLACK3)
     screen.blit(TP3, (SCREEN_WIDTH    -box_size -empty_space,box_y + 200))
-
     if (is_clicked(SCREEN_WIDTH-box_size -empty_space  ,box_y,box_size,box_size)):
         current_game = load_from_save("save_files/save_3.txt")
         save_path = "save_files/save_3.txt"
-
-
-
     text = font.render("Start the Execution", False, GREEN)
     screen.blit(text, (SCREEN_WIDTH/2 - 320,140))
 
